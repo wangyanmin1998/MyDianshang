@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.vp);
         radioGroup = findViewById(R.id.rg);
         //创建集合
+        list.add(new BlankFragment());
+        list.add(new Homeragment());
+        list.add(new OntherFragment());
+
 
 
 
@@ -32,14 +36,54 @@ public class MainActivity extends AppCompatActivity {
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return null;
+                return list.get(position);
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return list.size();
             }
         });
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                radioGroup.check(radioGroup.getChildAt(position).getId());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rb1:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.rb2:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.rb3:
+                        viewPager.setCurrentItem(2);
+                        break;
+
+                }
+            }
+        });
+
+    }
+
+    public void data() {
+
+        viewPager.setCurrentItem(2);
     }
 }
